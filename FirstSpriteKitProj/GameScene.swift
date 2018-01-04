@@ -116,9 +116,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let realDest = shootAmount + projectile.position
         let actionMove = SKAction.move(to: realDest, duration: 2.0)
+        let rotateAction = SKAction.rotate(toAngle: CGFloat(Double.pi * 1), duration: 2.0)
         let actionMoveDone = SKAction.removeFromParent()
         
-        projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
+        projectile.run(SKAction.sequence([actionMove, rotateAction, actionMoveDone]))
         
     }
     
