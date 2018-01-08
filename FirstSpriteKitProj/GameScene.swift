@@ -109,6 +109,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if (offset.x < 0) { return }
         
+        let action = SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 0.5)
+        projectile.run(SKAction.repeatForever(action))
+        
         addChild(projectile)
         
         let direction = offset.normalized()
@@ -116,10 +119,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let realDest = shootAmount + projectile.position
         let actionMove = SKAction.move(to: realDest, duration: 2.0)
-        let rotateAction = SKAction.rotate(toAngle: CGFloat(Double.pi * 1), duration: 2.0)
         let actionMoveDone = SKAction.removeFromParent()
         
-        projectile.run(SKAction.sequence([actionMove, rotateAction, actionMoveDone]))
+        projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
         
     }
     
