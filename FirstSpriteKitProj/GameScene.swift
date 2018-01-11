@@ -19,26 +19,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.white
-        score = 0
-        player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
-
-        scoreLabel.fontName = "Chalkduster"
-        scoreLabel.horizontalAlignmentMode = .left
-        scoreLabel.verticalAlignmentMode = .top
-        scoreLabel.fontColor = SKColor.black
-        scoreLabel.fontSize = 18
-        scoreLabel.zPosition = 5
-        scoreLabel.position = CGPoint(x: 0.0, y: self.frame.size.height)
-
-        addChild(player)
-        addChild(scoreLabel)
+        
+        startGame()
         
         physicsWorld.gravity = CGVector.zero
         physicsWorld.contactDelegate = self
         
         run(SKAction.repeatForever(SKAction.sequence([SKAction.run(addMonster), SKAction.wait(forDuration: 1.0)])))
-        
-
     }
     
     
@@ -50,9 +37,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return random() * (max - min) + min
     }
     
+    func startGame() {
+        score = 0
+        
+        addPlayer()
+        
+        scoreLabel.fontName = "Chalkduster"
+        scoreLabel.horizontalAlignmentMode = .left
+        scoreLabel.verticalAlignmentMode = .top
+        scoreLabel.fontColor = SKColor.black
+        scoreLabel.fontSize = 18
+        scoreLabel.zPosition = 5
+        scoreLabel.position = CGPoint(x: 0.0, y: self.frame.size.height)
+        
+        addChild(scoreLabel)
+    }
+    
+    func addPlayer() {
+        player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+        player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
+        player.physicsBody?.isDynamic = true
+        player.physicsBody?.categoryBitMask = PhysicsCategory.Player
+        player.physicsBody?.contactTestBitMask = PhysicsCategory.Monster
+        player.physicsBody?.collisionBitMask = PhysicsCategory.None
+        player.physicsBody?.usesPreciseCollisionDetection = true
+        
+        addChild(player)
+    }
+    
     func addMonster() {
         let monster = SKSpriteNode(imageNamed: "monster")
-        
         monster.physicsBody = SKPhysicsBody(rectangleOf: monster.size)
         monster.physicsBody?.isDynamic = true
         monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster
@@ -113,6 +127,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         monster.removeFromParent()
     }
     
+    func gameOver(player: SKSpriteNode, monster: SKSpriteNode, score: Int) {
+        let gameOverLabel = SKLabelNode()
+        let finalScore = SKLabelNode()
+        
+        player.removeFromParent()
+        monster.removeFromParent()
+        
+        gameOverLabel.text = "Game over!"
+        gameOverLabel.fontSize = 55
+        gameOverLabel.fontColor = SKColor.black
+        gameOverLabel.fontName = "Chalkduster"
+        gameOverLabel.zPosition = 6
+        gameOverLabel.position = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height / 2)
+        
+        finalScore.text = "Final Score: \(score)"
+        finalScore.fontSize = 25
+        finalScore.fontColor = SKColor.black
+        finalScore.fontName = "Chalkduster"
+        finalScore.zPosition = 6
+        finalScore.position = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height / 2.5)
+        
+        addChild(gameOverLabel)
+        addChild(finalScore)
+        
+        removeAllActions()
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
         var firstBody: SKPhysicsBody
         var secondBody: SKPhysicsBody
@@ -125,11 +166,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if ((firstBody.categoryBitMask & PhysicsCategory.Monster != 0) &&
-            (secondBody.categoryBitMask & PhysicsCategory.Projectile != 0)) {
+            (secondBody.categoryBitMask == 2 && PhysicsCategory.Projectile == 2)) {
+            print(PhysicsCategory.Player)
             if let monster = firstBody.node as? SKSpriteNode,
                let projectile = secondBody.node as? SKSpriteNode {
                 projectileDidCollideWithMonster(projectile: projectile, monster: monster)
             }
+        } else if ((firstBody.categoryBitMask & PhysicsCategory.Monster != 0) &&
+                    secondBody.categoryBitMask == 3 && PhysicsCategory.Player == 3) {
+            if let monster = firstBody.node as? SKSpriteNode,
+               let player = secondBody.node as? SKSpriteNode {
+                gameOver(player: player, monster: monster, score: score)
+            }
         }
+        
+        
     }
 }
+
+
+
+
+
+
+
+
+
+
+
