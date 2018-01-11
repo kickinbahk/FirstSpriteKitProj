@@ -11,6 +11,7 @@ import SpriteKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     let player = SKSpriteNode(imageNamed: "player")
     var scoreLabel = SKLabelNode()
+    var score = 0
     
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.white
@@ -18,10 +19,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         scoreLabel.fontName = "Chalkduster"
         scoreLabel.text = "Score: "
+        scoreLabel.horizontalAlignmentMode = .left
+        scoreLabel.verticalAlignmentMode = .top
         scoreLabel.fontColor = SKColor.black
-        scoreLabel.fontSize = 15
+        scoreLabel.fontSize = 18
         scoreLabel.zPosition = 5
-        scoreLabel.position = CGPoint(x: 0.0, y: self.frame.size.height / 2)
+        scoreLabel.position = CGPoint(x: 0.0, y: self.frame.size.height)
 
         addChild(player)
         addChild(scoreLabel)
