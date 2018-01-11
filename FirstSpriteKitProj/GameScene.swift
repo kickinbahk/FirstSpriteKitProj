@@ -10,20 +10,20 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     let player = SKSpriteNode(imageNamed: "player")
-    var scoreLabel: SKLabelNode!
+    var scoreLabel = SKLabelNode()
     
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.white
         player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
-        addChild(player)
 
-        scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+        scoreLabel.fontName = "Chalkduster"
         scoreLabel.text = "Score: "
-        scoreLabel.color = .black
-        scoreLabel.fontSize = 20
-        scoreLabel.horizontalAlignmentMode = .right
-        scoreLabel.position = CGPoint(x: 980, y: 700)
-        
+        scoreLabel.fontColor = SKColor.black
+        scoreLabel.fontSize = 15
+        scoreLabel.zPosition = 5
+        scoreLabel.position = CGPoint(x: 0.0, y: self.frame.size.height / 2)
+
+        addChild(player)
         addChild(scoreLabel)
         
         physicsWorld.gravity = CGVector.zero
