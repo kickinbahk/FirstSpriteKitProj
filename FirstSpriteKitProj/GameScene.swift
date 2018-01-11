@@ -18,7 +18,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
 
         scoreLabel.fontName = "Chalkduster"
-        scoreLabel.text = "Score: "
+        scoreLabel.text = "Score: \(score)"
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.verticalAlignmentMode = .top
         scoreLabel.fontColor = SKColor.black
@@ -104,6 +104,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func projectileDidCollideWithMonster(projectile: SKSpriteNode, monster: SKSpriteNode) {
         print("Hit")
+        score += 1
+        scoreLabel.text = "Score: \(score)"
         projectile.removeFromParent()
         monster.removeFromParent()
     }
