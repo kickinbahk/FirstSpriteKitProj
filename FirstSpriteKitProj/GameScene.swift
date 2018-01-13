@@ -130,6 +130,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func gameOver(player: SKSpriteNode, monster: SKSpriteNode, score: Int) {
         let gameOverLabel = SKLabelNode()
         let finalScore = SKLabelNode()
+        let restartButton = AddButton(defaultButtonImage: "UI_play_again_button",
+                                      activeButtonImage: "UI_play_again_button") {
+            self.startGame()
+        }
         
         player.removeFromParent()
         monster.removeFromParent()
@@ -148,8 +152,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         finalScore.zPosition = 6
         finalScore.position = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height / 2.5)
         
+        restartButton.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+
+        
         addChild(gameOverLabel)
         addChild(finalScore)
+        addChild(restartButton)
         
         removeAllActions()
     }

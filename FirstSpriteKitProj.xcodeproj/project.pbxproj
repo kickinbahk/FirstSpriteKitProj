@@ -18,6 +18,7 @@
 		EB4BB9991FFBDDAC00CBF445 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = EB4BB9971FFBDDAC00CBF445 /* pew-pew-lei.caf */; };
 		EB52F230200437EE008F1FB9 /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB52F22F200437EE008F1FB9 /* PhysicsCategory.swift */; };
 		EB52F232200438B0008F1FB9 /* CGPoint+Length+Normalized.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB52F231200438B0008F1FB9 /* CGPoint+Length+Normalized.swift */; };
+		EBC581B2200A956100E9B909 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC581B1200A956100E9B909 /* AddButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		EB4BB9971FFBDDAC00CBF445 /* pew-pew-lei.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pew-pew-lei.caf"; sourceTree = "<group>"; };
 		EB52F22F200437EE008F1FB9 /* PhysicsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
 		EB52F231200438B0008F1FB9 /* CGPoint+Length+Normalized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Length+Normalized.swift"; sourceTree = "<group>"; };
+		EBC581B1200A956100E9B909 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				EB4BB9811FFBD73000CBF445 /* Info.plist */,
 				EB52F22F200437EE008F1FB9 /* PhysicsCategory.swift */,
 				EB52F231200438B0008F1FB9 /* CGPoint+Length+Normalized.swift */,
+				EBC581B1200A956100E9B909 /* AddButton.swift */,
 			);
 			path = FirstSpriteKitProj;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 				EB4BB9761FFBD72F00CBF445 /* GameScene.swift in Sources */,
 				EB52F230200437EE008F1FB9 /* PhysicsCategory.swift in Sources */,
 				EB4BB9781FFBD72F00CBF445 /* GameViewController.swift in Sources */,
+				EBC581B2200A956100E9B909 /* AddButton.swift in Sources */,
 				EB52F232200438B0008F1FB9 /* CGPoint+Length+Normalized.swift in Sources */,
 				EB4BB9701FFBD72F00CBF445 /* AppDelegate.swift in Sources */,
 			);
