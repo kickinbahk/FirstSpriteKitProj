@@ -11,6 +11,9 @@ import SpriteKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     let player = SKSpriteNode(imageNamed: "player")
     var scoreLabel = SKLabelNode()
+    let gameOverLabel = SKLabelNode()
+    let finalScore = SKLabelNode()
+    
     var score = 0 {
         didSet {
             scoreLabel.text = "Score: \(score)"
@@ -128,13 +131,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func gameOver(player: SKSpriteNode, monster: SKSpriteNode, score: Int) {
-        let gameOverLabel = SKLabelNode()
-        let finalScore = SKLabelNode()
         let restartButton = JMButton(defaultButtonImage: "UI_play_again_button",
-                                      activeButtonImage: "UI_play_again_button") {
-            self.startGame()
-        }
+                                     activeButtonImage: "UI_play_again_button",
+                                     buttonAction: { self.restartGame() })
         
+        scoreLabel.removeFromParent()
         player.removeFromParent()
         monster.removeFromParent()
         
@@ -143,16 +144,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameOverLabel.fontColor = SKColor.black
         gameOverLabel.fontName = "Chalkduster"
         gameOverLabel.zPosition = 6
-        gameOverLabel.position = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height / 2)
+        gameOverLabel.position = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height / 1.7)
         
         finalScore.text = "Final Score: \(score)"
         finalScore.fontSize = 25
         finalScore.fontColor = SKColor.black
         finalScore.fontName = "Chalkduster"
         finalScore.zPosition = 6
-        finalScore.position = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height / 2.5)
+        finalScore.position = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height / 2.1)
         
-        restartButton.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+        restartButton.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2.8)
 
         
         addChild(gameOverLabel)
@@ -160,6 +161,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(restartButton)
         
         removeAllActions()
+    }
+    
+    func restartGame() {
+        removeAllChildren()
+        startGame()
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
