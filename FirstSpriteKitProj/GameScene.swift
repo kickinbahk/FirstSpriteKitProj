@@ -22,10 +22,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         startGame()
         
-        physicsWorld.gravity = CGVector.zero
         physicsWorld.contactDelegate = self
-        
-        run(SKAction.repeatForever(SKAction.sequence([SKAction.run(addMonster), SKAction.wait(forDuration: 1.0)])))
     }
     
     
@@ -51,6 +48,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.position = CGPoint(x: 0.0, y: self.frame.size.height)
         
         addChild(scoreLabel)
+        
+        physicsWorld.gravity = CGVector.zero
+        run(SKAction.repeatForever(SKAction.sequence([SKAction.run(addMonster), SKAction.wait(forDuration: 1.0)])))
     }
     
     func addPlayer() {
