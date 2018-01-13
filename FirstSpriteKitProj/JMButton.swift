@@ -1,5 +1,5 @@
 //
-//  AddButton.swift
+//  JMButton.swift
 //  FirstSpriteKitProj
 //
 //  Created by Josiah Mory on 1/13/18.
@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class AddButton: SKNode {
+class JMButton: SKNode {
     var defaultButton: SKSpriteNode
     var activeButton: SKSpriteNode
     var action: () -> Void

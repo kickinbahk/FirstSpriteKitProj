@@ -130,7 +130,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func gameOver(player: SKSpriteNode, monster: SKSpriteNode, score: Int) {
         let gameOverLabel = SKLabelNode()
         let finalScore = SKLabelNode()
-        let restartButton = AddButton(defaultButtonImage: "UI_play_again_button",
+        let restartButton = JMButton(defaultButtonImage: "UI_play_again_button",
                                       activeButtonImage: "UI_play_again_button") {
             self.startGame()
         }
