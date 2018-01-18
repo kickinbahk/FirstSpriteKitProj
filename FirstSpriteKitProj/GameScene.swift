@@ -13,6 +13,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var scoreLabel = SKLabelNode()
     let gameOverLabel = SKLabelNode()
     let finalScore = SKLabelNode()
+    var gameRunning = false
     
     var score = 0 {
         didSet {
@@ -39,6 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func startGame() {
         score = 0
+        gameRunning = true
         
         addPlayer()
         
@@ -89,11 +91,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        guard gameRunning else { return }
+        
         guard let touch = touches.first else { return }
         
         let touchLocation = touch.location(in: self)
-        
         let projectile = SKSpriteNode(imageNamed: "projectile")
+        
         projectile.position = player.position
 
         projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width / 2)
@@ -117,9 +122,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let realDest = shootAmount + projectile.position
         let actionMove = SKAction.move(to: realDest, duration: 2.0)
+        let sound = SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false)
         let actionMoveDone = SKAction.removeFromParent()
         
-        projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
+        projectile.run(SKAction.sequence([sound, actionMove, actionMoveDone]), withKey: "projectileFire")
         
     }
     
@@ -131,6 +137,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func gameOver(player: SKSpriteNode, monster: SKSpriteNode, score: Int) {
+        gameRunning = false
         let restartButton = JMButton(defaultButtonImage: "UI_play_again_button",
                                      activeButtonImage: "UI_play_again_button",
                                      buttonAction: { self.restartGame() })
@@ -181,7 +188,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if ((firstBody.categoryBitMask & PhysicsCategory.Monster != 0) &&
             (secondBody.categoryBitMask == 2 && PhysicsCategory.Projectile == 2)) {
-            print(PhysicsCategory.Player)
             if let monster = firstBody.node as? SKSpriteNode,
                let projectile = secondBody.node as? SKSpriteNode {
                 projectileDidCollideWithMonster(projectile: projectile, monster: monster)
@@ -193,7 +199,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 gameOver(player: player, monster: monster, score: score)
             }
         }
-        
         
     }
 }
