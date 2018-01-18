@@ -13,8 +13,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var scoreLabel = SKLabelNode()
     let gameOverLabel = SKLabelNode()
     let finalScore = SKLabelNode()
+    var backgroundMusic: SKAudioNode!
     var gameRunning = false
-    
     var score = 0 {
         didSet {
             scoreLabel.text = "Score: \(score)"
@@ -41,6 +41,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func startGame() {
         score = 0
         gameRunning = true
+        
+        if let musicURL = Bundle.main.url(forResource: "background-music-aac", withExtension: "caf") {
+            backgroundMusic = SKAudioNode(url: musicURL)
+            addChild(backgroundMusic)
+        }
         
         addPlayer()
         
