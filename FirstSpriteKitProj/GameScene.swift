@@ -146,7 +146,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let restartButton = JMButton(defaultButtonImage: "UI_play_again_button",
                                      activeButtonImage: "UI_play_again_button",
                                      buttonAction: { self.restartGame() })
-        
+        backgroundMusic.removeFromParent()
         scoreLabel.removeFromParent()
         player.removeFromParent()
         monster.removeFromParent()
